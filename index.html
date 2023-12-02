@@ -1,20 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="style.css">
+  <script defer src="script.js"></script>
   <title>Salary Calculator</title>
 </head>
+
 <body>
   <header>
-    <h1>Salary Calculator</h1>
+    <h1>JavaScript Affirmation App</h1>
   </header>
+
   <main>
-    <h2>Add Employee</h2>
-    <h2>Employees</h2>
+    <section>
+        <input id="firstNameInput" data-testid="firstNameInput"></input>
+        <input id="lastNameInput" data-testid="lastNameInput"></input>
+        <input id="idInput" data-testid="idInput"></input>
+        <input id="titleInput" data-testid="titleInput"></input>
+        <input id="annualSalaryInput" data-testid="annualSalaryInput"></input>
+      <button id="submitEmployee" onclick="submitEmployee()">Submit</button>
+        
+    </section>
+    <section>
+      <h3>Add employee</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Employee ID</th>
+            <th>Title</th>
+            <th>Anual Sallary</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+        </tbody>
+      </table>
+    </section>
   </main>
-  <footer>
-    <p>Total Monthly</p>
+
+  <footer id="footer">
+    <h5>Total Monthly Cost</h5>
+    <div id="totalMonthlyCost"></div>
   </footer>
 </body>
+
 </html>
