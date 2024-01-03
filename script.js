@@ -5,9 +5,8 @@ var total = 0;
 function onReady() {
   console.log('Javascript is working!');
 }
-//this references the submitEmployee button created in script.js
-function submitEmployee(){
-  console.log('sunmitEmployee button clicked');
+
+function submitEmployee() {
   const firstInput = document.getElementById('firstNameInput').value;
   const lastInput = document.getElementById('lastNameInput').value;
   const idInput = document.getElementById('idInput').value;
@@ -16,15 +15,34 @@ function submitEmployee(){
   const employeeDiv = document.getElementById('tableBody');
   const totalMonthlyCostDiv = document.getElementById('totalMonthlyCost');
   const monthlyError = document.getElementById('footer');
-  employeeDiv.innerHTML += `<tr><th>${firstInput}</th><th>${lastInput}</th><th>${idInput}</th><th>${titleInput}</th><th>${salaryInput}</th></tr>`
-//was throwing as a string, so used parsInt
-  total += parseInt(salaryInput);
-  //\$ is an escape $ so that it shows an $ in total monthly cost
-    totalMonthlyCostDiv.innerHTML = `\$${total/12.0}`;
-    if (total / 12 > 20000) {
-        //class list is a list off all classes and the .add just adds this to it
-        monthlyError.classList.add('over-budget');
-    
-}
 
+  // Create delete button for each row
+  const deleteButton = document.createElement('button');
+  deleteButton.textContent = 'Delete';
+  deleteButton.onclick = function() {
+    const row = this.parentNode.parentNode;
+    const salary = parseInt(row.children[4].textContent);
+    total -= salary;
+    totalMonthlyCostDiv.textContent = `$${(total / 12).toFixed(2)}`;
+
+    if (total / 12 <= 20000) {
+      monthlyError.classList.remove('over-budget');
+    }
+
+    row.parentNode.removeChild(row);
+  };
+
+  // Update total salary before adding the new employee's salary
+  total += parseInt(salaryInput);
+
+  totalMonthlyCostDiv.textContent = `$${(total / 12).toFixed(2)}`;
+
+  if (total / 12 > 20000) {
+    monthlyError.classList.add('over-budget');
+  }
+
+  const newRow = document.createElement('tr');
+  newRow.innerHTML = `<td>${firstInput}</td><td>${lastInput}</td><td>${idInput}</td><td>${titleInput}</td><td>${salaryInput}</td><td></td>`;
+  newRow.lastElementChild.appendChild(deleteButton);
+  employeeDiv.appendChild(newRow);
 }
